@@ -1,6 +1,7 @@
 export default {
 	fetch() {
-		return new Response('Hello worker! We are Hilal!', {
+		console.log(request.url)
+		return new Response('Hello worker! I am Hilal!', {
 			headers: {
 				'content-type': 'text/plain',
 			},
