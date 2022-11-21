@@ -1,14 +1,14 @@
 export default {
 	fetch(request) {
-		if(request.url == "https://codeclubcf.ent-acc-w-ent-plans.workers.dev") {
-		return new Response('Hello worker! I am Hilal!', {
+		if(request.method == "POST") {
+		return new Response('You ROCK!', {
 			headers: {
-				'content-type': 'text/plain',
+				'content-type': 'application/json',
 			},
 		});
 	}
 	else{
-			return new Response ('Error Worker!', {
+			return new Response ('Oops, the request method is not POST!', {
 				headers: {
 					'content-type' : 'text/plain',
 				},
