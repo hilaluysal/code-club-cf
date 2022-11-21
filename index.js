@@ -1,18 +1,19 @@
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max)
+}
+
+
+const websiteTable = { 0 : "https://hilaltugbauysal.com",
+				1 : "https://sunnylx.eu",
+                2 : "https://guilherme-menezes.com",
+                3 : "lusostreams.com"}
+
 export default {
-	fetch(request) {
-		if(request.method == "POST") {
-		return new Response('You ROCK!', {
-			headers: {
-				'content-type': 'application/json',
-			},
-		});
-	}
-	else{
-			return new Response ('Oops, the request method is not POST!', {
-				headers: {
-					'content-type' : 'text/plain',
-				},
-			});
-		}	
-	},
-};
+    async fetch(request){
+        let number = websiteTable[getRandomInt(4)]
+        let url = websiteTable[number]
+
+        return request.url
+    }
+
+}
