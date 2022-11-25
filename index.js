@@ -1,39 +1,67 @@
 export default {
-	fetch(request) {
+	async fetch(request, env, context) {
 
-        function getRandomInt(max) {
-            return Math.floor(Math.random() * max)
+        if (request.cf.botManagement.score <= 29) {
+
+            return new Response ('The request is likely automated!', {
+                headers: {
+                    'content-type' : 'application/json',
+                }
+            });
+        }   
+        else {
+            request = new Request(request)
+            response = await this.fetch(request, {
+                cf: {
+                    resolveOverride: 'hilal.fun',
+                },
+            })
         }
-        
-        const websiteTable = { 0 : "https://hilaltugbauysal.com",
-                        1 : "https://sunnylx.eu",
-                        2 : "https://guilherme-menezes.com",
-                        3 : "https://lusostreams.com"
-                    }
+        return response
 
         
-        async function handleRequest(request) {
 
-            console.log("Heyy I am inside the function!")
-            let key = getRandomInt(4);
-            let url = websiteTable[key]
-            console.log(key)
-            
-            console.log('Redirected url is:', url)
-           /* return new Response(url, 
-                {
-                    headers:
-                    {
-                        'content-type': 'text/plain',
-                    },
-                });*/
 
-            return Response.redirect(url, 301)
-        }
 
-        //request.headers.set('Cache-Control', 'no-cache')
-        
-        return handleRequest(request);
+
+        /*const response = await fetch(request)
+        //clone the response so that it's no longer immutable
+        const newResponse = new Response(response.body, response)
+
+        //Add a custom header with the value
+        newResponse.headers.append('x-workers-hello', 'Hello from Cloudflare Workers'
+        )
+        //Delete headers
+        newResponse.headers.delete('x-header-to-delete')
+        newResponse.headers.delete('x-header2-to-delete')
+        //Adjust the value for an existing header
+        newResponse.headers.set('x-headers-to-change', 'Hilal')
+
+        return newResponse*/
+
+
+
+
+        /*const url = new URL(request.url)
+
+        const someCustomKey = `https://${url.hostname}${url.pathname}`
+
+        let response = await this.fetch(request, {
+
+            cf: {
+                cacheTtl: 5,
+                cacheEverything: true,
+                cacheKey: someCustomKey,
+            },
+        })
+
+        response = new Response(response.body, response)
+
+        response.headers.set('Cache-Control', 'max-age=1500')
+
+        context.waitUntil(caches.default.put(request, response.clone()))
+
+        return response*/
 
 
 	},
