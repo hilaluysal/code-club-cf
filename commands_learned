@@ -1,6 +1,0 @@
-git commit -m "something"
-git add file-name
-git push
-
-wrangler dev
-npm 
